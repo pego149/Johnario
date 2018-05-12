@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
+import johnario.Audio;
 import player.ETypHraca;
+import player.EVelkost;
 import player.Mario;
 
 /**
@@ -27,7 +29,7 @@ public class Tehla implements IPrekazka{
      * @param x x-ová souřadnice
      */
     public Tehla(Obrazovka panel, int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("tehla.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/res/tehla.png"));
         prekazkaObr = ii.getImage();
         this.panel = panel;
         this.x = x;
@@ -48,13 +50,18 @@ public class Tehla implements IPrekazka{
         }
         if(zrazka()) {
             this.vAnimacii = true;
-            //this.viditelny = false;
-            //this.x = -50;
-            //this.y = 50;
+            if(this.mario.getVelkost() == EVelkost.VELKY) {
+                this.viditelny = false;
+                this.x = -50;
+                this.y = 50;
+                Audio block = new Audio("/res/smb_breakblock.wav");
+                block.play();
+            }
+            
         }
         if(vAnimacii) {
             animacia++;
-            if (animacia == 10) {
+            if (animacia == 20) {
                 animacia = 0;
                 this.vAnimacii = false;
             }
@@ -86,17 +93,17 @@ public class Tehla implements IPrekazka{
     }
     
     public void animacia() {
-        if(mario.getTypMaria() == ETypHraca.MALY_SKOK_VLAVO || mario.getTypMaria() == ETypHraca.MALY_SKOK_VPRAVO || mario.getTypMaria() == ETypHraca.MALY_VLAVO || mario.getTypMaria() == ETypHraca.MALY_VPRAVO) {
-            if(animacia == 0) {
+       //if(mario.getTypMaria() == ETypHraca.MALY_SKOK_VLAVO || mario.getTypMaria() == ETypHraca.MALY_SKOK_VPRAVO || mario.getTypMaria() == ETypHraca.MALY_VLAVO || mario.getTypMaria() == ETypHraca.MALY_VPRAVO) {
+            if(animacia >= 0 && animacia < 4) {
                 this.y = y - 3;
-            } else if (animacia == 2) {
+            } else if (animacia >= 4 && animacia < 8) {
                 this.y = y - 2;
-            } else if (animacia == 6) {
+            } else if (animacia >= 8 && animacia < 12) {
                 this.y = y + 2;
-            } else if (animacia == 8) {
+            } else if (animacia >= 12 && animacia < 16) {
                 this.y = y + 3;
             }
-        }
+        //}
     }
 
     @Override

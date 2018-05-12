@@ -21,7 +21,7 @@ public class Pozadie {
     private int y;
     
     public Pozadie(Obrazovka panel) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("bg.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/res/bg.png"));
         prekazkaObr = ii.getImage();
         this.panel = panel;             // reference na panel
         this.x = 0;

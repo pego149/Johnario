@@ -15,88 +15,105 @@ import johnario.Obrazovka;
  * @author vita
  */
 public class Goomba {
-    private Obrazovka panel;
-    private ESmer smer;
-    private Image gObr;
-    private int x;      // x-ová souřadnice auta
-    private int y;      // y-ová souřadnice auta
-    private double dx;     // směr auta po ose x (+ doprava, - doleva)
-    private double dy;     // směr auta po ose y (+ dole, - hore)
-    private int  maxDy;
-    private double gravity;
+    private Image goombaObr1;
+    private Image goombaObr;
+    private int x;
+    private int y;
+    private int dx;
+    private int dy;
+    private final int maxDy;
+    private final double gravity;
     private boolean mozePadat;
-    private boolean mozeSkocit;
-    private boolean[] tlacidla;
-    private boolean vAnimacii;
-    private int animacia;
-    private Image g1;
-    private Image g2;
-    
-
-    
-    /**
-     * Kontruktor třídy Auto
-     * @param sirkaPanelu - šířka herní plochy
-     */
-    public Goomba(Obrazovka panel) {
-        this.smer = ESmer.VPRAVO;
-        this.g1 = new ImageIcon(Goomba.class.getResource("goomba1.png")).getImage();
-        this.g2 = new ImageIcon(Goomba.class.getResource("goomba2.png")).getImage();
+    private int mapx;
+    private final Obrazovka panel;
+    private final Image goombaObr2;
+    private int zmena;
+    private final Mario mario;
+    private boolean zivy;
+        
+    public Goomba(Obrazovka panel, int x, int y) {
         this.panel = panel;
-        this.x = 100;
-        this.y = 300;
-        this.dx = 0;
+        this.x = x;
+        this.y = y;
+        this.goombaObr1 = new ImageIcon(this.getClass().getResource("/res/goomba1.png")).getImage();
+        this.goombaObr2 = new ImageIcon(this.getClass().getResource("/res/goomba2.png")).getImage();
+        this.goombaObr = goombaObr1;
+        this.dx = 2;
         this.dy = 0;
         this.maxDy = 8;
-        this.gravity = 0.64;
+        this.gravity = 1;
         this.mozePadat = true;
-        this.animacia = 0;
+        this.mapx = 0;
+        this.mario = panel.getMario();
+        this.zivy = true;
     }
-    
-    /**
-     * Vykreslí obrázek na aktuální souřadnice
-     * @param g grafický kontext
-     */
+
     public void vykresliSe(Graphics g) {
-        
-        g.drawImage(gObr, x, y, null);
+        if (this.zmena == 0) {
+            goombaObr = goombaObr1;
+        } else if (this.zmena == 20) {
+            goombaObr = goombaObr2;
+        }
+        if (zmena == 40) {
+            this.zmena = -1;
+        }
+        this.zmena++;
+        g.drawImage(goombaObr, x, y, null);
     }
-    
-    /**
-     * Změna x-ové souřadnice v daném směru.
-     */
+
     public void provedPohyb() {
         x += dx;
         y += dy;
-        if (x < 0) {
-            x = 0;
-        } else if (x > (panel.getWidth() - gObr.getWidth(null) - 1) && (panel.getWidth() >0)) {
-            x = panel.getWidth() - gObr.getWidth(null) - 1;
+        if (x < mapx) {
+            dx = 2;
         }
-        if (dx == 5 && panel.isSrazka(new Rectangle(x + 5, y, gObr.getWidth(null) + 3, gObr.getHeight(null) - 5))) {
-            dx = 0;
-            x -= 1;
-        } else if (dx == -5 && panel.isSrazka(new Rectangle(x - 3, y, gObr.getWidth(null) + 1, gObr.getHeight(null) - 5))) {
-            dx = 0;
-            x += 1;
+        if (dx == 2 && panel.isSrazka(new Rectangle(x + 5, y, goombaObr.getWidth(null) + 3, goombaObr.getHeight(null) - 5))) {
+            dx = -2;
+        } else if (dx == -2 && panel.isSrazka(new Rectangle(x - 3, y, goombaObr.getWidth(null) + 1, goombaObr.getHeight(null) - 5))) {
+            dx = 2;
         }
-        mozePadat = !panel.isSrazka(new Rectangle(x + 2, y, gObr.getWidth(null) - 2, gObr.getHeight(null) + 1));
+        mozePadat = !panel.isSrazka(new Rectangle(x + 2, y, goombaObr.getWidth(null) - 2, goombaObr.getHeight(null)));
         if (mozePadat) {
-            padanie(); 
+            this.padanie(); 
         } else {
+            y -= 1;
             dy = 0;            
         }
+        this.kontrolaKolizieSMariom();
     }
-    
+
     public void padanie () {
-        dy += gravity;
+        this.dy += this.gravity;
         if (dy >= maxDy) {
             dy = maxDy;
         }
     }
-    
-    public Rectangle getOkraje() {
-        Rectangle r = new Rectangle(x, y, gObr.getWidth(null), gObr.getHeight(null));
-        return r;
+
+    public int getY() {
+        return y;
     }
+
+    public void kontrolaKolizieSMariom() {
+        if(mario.getOkraje().intersects(new Rectangle(x + 2, y, goombaObr.getWidth(null) - 2, goombaObr.getHeight(null) - 10))) {
+            Audio kick = new Audio("/res/smb_kick.wav");
+            kick.play();
+            this.zivy = false;
+            this.panel.pridajScore(100);
+        }
+    }
+
+    public void minusY(int y) {
+        this.y -= y;
+    }
+
+    public void setX(int i) {
+        this.x = this.x + i;
+        this.mapx = this.mapx + i;
+    }
+
+    public boolean isZivy() {
+        return zivy;
+    }
+    
+    
 }

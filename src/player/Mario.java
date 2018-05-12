@@ -30,15 +30,10 @@ public class Mario implements KeyListener {
     private boolean[] tlacidla;
     private boolean vAnimacii;
     private int animacia;
+    private EVelkost velkost;
     
-
-    
-    /**
-     * Kontruktor třídy Auto
-     * @param sirkaPanelu - šířka herní plochy
-     */
     public Mario(Obrazovka panel) {
-        
+        this.velkost = EVelkost.MALY;
         this.typMaria = ETypHraca.MALY_VPRAVO;
         this.smer = ESmer.VPRAVO;
         this.marioObr = this.typMaria.getObr();
@@ -71,10 +66,18 @@ public class Mario implements KeyListener {
             animacia();
         } else {
             animacia = 0;
-            if (smer == ESmer.VLAVO) {
-                this.typMaria = ETypHraca.MALY_VLAVO;
+            if (velkost == EVelkost.MALY) {
+                if (smer == ESmer.VLAVO) {
+                    this.typMaria = ETypHraca.MALY_VLAVO;
+                } else {
+                    this.typMaria = ETypHraca.MALY_VPRAVO;
+                }
             } else {
-                this.typMaria = ETypHraca.MALY_VPRAVO;
+                if (smer == ESmer.VLAVO) {
+                    this.typMaria = ETypHraca.VELKY_VLAVO;
+                } else {
+                    this.typMaria = ETypHraca.VELKY_VPRAVO;
+                }
             }
         }
     }
@@ -110,12 +113,22 @@ public class Mario implements KeyListener {
         mozePadat = !panel.isSrazka(new Rectangle(x + 2, y, marioObr.getWidth(null) - 2, marioObr.getHeight(null) + 1));
         if (mozePadat) {
             padanie(); 
-            if (smer == ESmer.VLAVO) {
-                this.typMaria = ETypHraca.MALY_SKOK_VLAVO;
-            } else if (smer == ESmer.VPRAVO) {
-                this.typMaria = ETypHraca.MALY_SKOK_VPRAVO;
-            } else if (smer == ESmer.KONIEC) {
-                this.typMaria = ETypHraca.MALY_KONIEC;
+            if (velkost == EVelkost.MALY) {
+                if (smer == ESmer.VLAVO) {
+                    this.typMaria = ETypHraca.MALY_SKOK_VLAVO;
+                } else if (smer == ESmer.VPRAVO) {
+                    this.typMaria = ETypHraca.MALY_SKOK_VPRAVO;
+                } else if (smer == ESmer.KONIEC) {
+                    this.typMaria = ETypHraca.MALY_KONIEC;
+                }
+            } else {
+                if (smer == ESmer.VLAVO) {
+                    this.typMaria = ETypHraca.VELKY_SKOK_VLAVO;
+                } else if (smer == ESmer.VPRAVO) {
+                    this.typMaria = ETypHraca.VELKY_SKOK_VPRAVO;
+                } else if (smer == ESmer.KONIEC) {
+                    this.typMaria = ETypHraca.MALY_KONIEC;
+                }
             }
         } else {
             dy = 0;
@@ -141,13 +154,23 @@ public class Mario implements KeyListener {
     }
     
     public void skok(int vyska) {
-        if (mozeSkocit) {
-            Audio skok = new Audio("/res/smb_jump-small.wav");
-            skok.play();
-            dy -= vyska;
-            this.typMaria = ETypHraca.MALY_SKOK_VLAVO;
-            this.marioObr = this.typMaria.getObr();
+        if (velkost == EVelkost.MALY) {
+            if (mozeSkocit) {
+                Audio skok = new Audio("/res/smb_jump-small.wav");
+                skok.play();
+                dy -= vyska;
+            } 
+        } else {
+            if (mozeSkocit) {
+                Audio skok = new Audio("/res/smb_jump-super.wav");
+                skok.play();
+                dy -= vyska + 3;
+            }
         }
+    }
+
+    public EVelkost getVelkost() {
+        return velkost;
     }
     
     /**
@@ -212,7 +235,7 @@ public class Mario implements KeyListener {
             }  
         } else if (tlacidla[1]) {
             if (!panel.isSrazka(new Rectangle(x + 2, y, marioObr.getWidth(null) + 2, marioObr.getHeight(null)))) {
-                dx = 5;   
+                dx = 5;
                 this.smer = ESmer.VPRAVO; 
                 this.vAnimacii = true;
             }  else {
@@ -237,28 +260,43 @@ public class Mario implements KeyListener {
     }
     
     public void animacia() {
-        if (smer == ESmer.VPRAVO) {
-            if(animacia == 0) {
-                this.typMaria = ETypHraca.MALY_BEZI1_VPRAVO;
-            } else if (animacia == 6) {
-                this.typMaria = ETypHraca.MALY_BEZI2_VPRAVO;
-            } else if (animacia == 12) {
-                this.typMaria = ETypHraca.MALY_BEZI3_VPRAVO;
+        if (velkost == EVelkost.MALY) {
+            if (smer == ESmer.VPRAVO) {
+                if(animacia == 0) {
+                    this.typMaria = ETypHraca.MALY_BEZI1_VPRAVO;
+                } else if (animacia == 6) {
+                    this.typMaria = ETypHraca.MALY_BEZI2_VPRAVO;
+                } else if (animacia == 12) {
+                    this.typMaria = ETypHraca.MALY_BEZI3_VPRAVO;
+                }
+            } else {
+                if(animacia == 0) {
+                    this.typMaria = ETypHraca.MALY_BEZI1_VLAVO;
+                } else if (animacia == 6) {
+                    this.typMaria = ETypHraca.MALY_BEZI2_VLAVO;
+                } else if (animacia == 12) {
+                    this.typMaria = ETypHraca.MALY_BEZI3_VLAVO;
+                }
             }
         } else {
-            if(animacia == 0) {
-                this.typMaria = ETypHraca.MALY_BEZI1_VLAVO;
-            } else if (animacia == 6) {
-                this.typMaria = ETypHraca.MALY_BEZI2_VLAVO;
-            } else if (animacia == 12) {
-                this.typMaria = ETypHraca.MALY_BEZI3_VLAVO;
+            if (smer == ESmer.VPRAVO) {
+                if(animacia == 0) {
+                    this.typMaria = ETypHraca.VELKY_BEZI1_VPRAVO;
+                } else if (animacia == 6) {
+                    this.typMaria = ETypHraca.VELKY_BEZI2_VPRAVO;
+                } else if (animacia == 12) {
+                    this.typMaria = ETypHraca.VELKY_BEZI3_VPRAVO;
+                }
+            } else {
+                if(animacia == 0) {
+                    this.typMaria = ETypHraca.VELKY_BEZI1_VLAVO;
+                } else if (animacia == 6) {
+                    this.typMaria = ETypHraca.VELKY_BEZI2_VLAVO;
+                } else if (animacia == 12) {
+                    this.typMaria = ETypHraca.VELKY_BEZI3_VLAVO;
+                }
             }
         }
-        this.marioObr = this.typMaria.getObr();
-    }
-
-    public void setTypMaria(ETypHraca eTypHraca) {
-        this.typMaria = eTypHraca;
         this.marioObr = this.typMaria.getObr();
     }
     
@@ -271,5 +309,10 @@ public class Mario implements KeyListener {
     public void posunObrazu(int x) {
         this.x = this.x - 5;
         this.panel.posunObrazu(5);
+    }
+    
+    public void setMarioToBig() {
+        this.velkost = EVelkost.VELKY;
+        this.y = this.y - 50;
     }
 }

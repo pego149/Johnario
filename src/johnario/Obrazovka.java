@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import nepriatelia.Goomba;
 import player.ETypHraca;
+import svet.BonusBlok;
 import svet.IPrekazka;
 import svet.Pozadie;
 import svet.Tehla;
@@ -26,7 +28,7 @@ import svet.Tehla;
  */
 public class Obrazovka extends JPanel implements ActionListener {
     private final int sirkaPanelu = 720;  // preferovaná šířka panelu
-    private final int vyskaPanelu = 400;  // preferovaná výška panelu
+    private final int vyskaPanelu = 430;  // preferovaná výška panelu
     private Timer casovac;    
     private Mario mario;
     private boolean hraSa;    // true když se hraje, false když hra skončila
@@ -35,6 +37,9 @@ public class Obrazovka extends JPanel implements ActionListener {
     private Audio bgMusic;
     private IPrekazka zrazka;
     private Pozadie bg;
+    private int cas;
+    private int score;
+    private ArrayList<Goomba> go;
 
     public IPrekazka getZrazka() {
         return zrazka;
@@ -66,14 +71,17 @@ public class Obrazovka extends JPanel implements ActionListener {
         hraSa = true;
         mario = new Mario(this);
         citac = 0;
+        this.cas = 300;
+        this.score = 0;
         prekazky = new ArrayList<>();
+        go = new ArrayList<>();
         this.addKeyListener(mario);
         pridajSpodok();
         bg = new Pozadie(this);
         
         casovac = new Timer(10, this);
         casovac.start();
-        bgMusic = new Audio("/johnario/mario.wav");
+        bgMusic = new Audio("/res/mario.wav");
         bgMusic.play();
     }
 
@@ -92,9 +100,16 @@ public class Obrazovka extends JPanel implements ActionListener {
             super.paintComponent(g);
             bg.vykresliSe(g);
             
-            vypisCitac(g); 
+            vypisVrch(g); 
             mario.vykresliSe(g);
-            
+            for (int i = 0; i < go.size(); i++) {
+                Goomba go = this.go.get(i);
+                if(go.isZivy()) {
+                    go.vykresliSe(g);
+                    go.provedPohyb();
+                }
+                
+            }
             
             for (int i = 0; i < prekazky.size(); i++) {
                 IPrekazka prek = prekazky.get(i);
@@ -114,8 +129,8 @@ public class Obrazovka extends JPanel implements ActionListener {
      * Vypíše na panel stav čítače
      * @param g grafický kontext
      */
-    private void vypisCitac(Graphics g) {
-        g.drawString(String.valueOf(citac), 10, 30);
+    private void vypisVrch(Graphics g) {
+        g.drawString("Čas: " + String.valueOf(this.cas) + "    Score: " + String.valueOf(this.score), 10, 30);
     }
     
     /**
@@ -141,12 +156,13 @@ public class Obrazovka extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         
         citac++;        // zvýší čítač o jedničku
-        
+        if((citac % 60) == 0) {
+            cas--;
+        }
         mario.provedPohyb();
         
         if (hraSa && mario.getOkraje().getY() > 350) {
             mario.endSkok();
-            mario.setTypMaria(ETypHraca.MALY_KONIEC);
             bgMusic.stop();
             Audio end = new Audio("/res/smb_gameover.wav");
             end.play();
@@ -183,19 +199,22 @@ public class Obrazovka extends JPanel implements ActionListener {
      */
     private void pridajSpodok() {
        for (int i = 0; i < 15; i++) {
-           this.prekazky.add(new Skala(this, i * 32, 325));
            this.prekazky.add(new Skala(this, i * 32, 357));
+           this.prekazky.add(new Skala(this, i * 32, 389));
        }
-       this.prekazky.add(new Skala(this, 14 * 32, 293));
+       this.prekazky.add(new Skala(this, 14 * 32, 325));
        
        for (int i = 19; i < 40; i++) {
-           this.prekazky.add(new Skala(this, i * 32, 325));
+           this.prekazky.add(new Skala(this, i * 32, 389));
            this.prekazky.add(new Skala(this, i * 32, 357));
        }
        this.prekazky.add(new Skala(this, 10 * 32, 261));
        this.prekazky.add(new Skala(this, 10 * 32, 229));
        this.prekazky.add(new Skala(this, 5 * 32, 5 * 32));
        this.prekazky.add(new Tehla(this, 6 * 32, 6 * 32));
+       this.prekazky.add(new BonusBlok(this, 3 * 32, 6 * 32, true));
+       this.prekazky.add(new BonusBlok(this, 7 * 32, 6 * 32, false));
+       this.go.add(new Goomba(this, 7 * 32, 8 * 32));
     }
     
     public void posunObrazu(int x) {
@@ -203,5 +222,9 @@ public class Obrazovka extends JPanel implements ActionListener {
             iPr.setX(-x);
         }
         this.bg.setX(-x/2);
+    }
+    
+    public void pridajScore(int score) {
+        this.score += score;
     }
 }

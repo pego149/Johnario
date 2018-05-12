@@ -22,7 +22,7 @@ public class Skala implements IPrekazka{
      * @param x x-ová souřadnice
      */
     public Skala(Obrazovka panel, int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("skala.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/res/skala.png"));
         prekazkaObr = ii.getImage();
         this.panel = panel;             // reference na panel
         this.x = x;  // umístění překážky na ose x při vytvoření
