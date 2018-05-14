@@ -39,8 +39,8 @@ public class Korytnacka implements INepriatel {
         this.panel = panel; // obrazovka
         this.x = x; // pozicia x
         this.y = y; // pozicia y 
-        this.nepriatelObr1 = new ImageIcon(this.getClass().getResource("/res/goomba1.png")).getImage(); // obrazok
-        this.nepriatelObr2 = new ImageIcon(this.getClass().getResource("/res/goomba2.png")).getImage(); // obrazok
+        this.nepriatelObr1 = new ImageIcon(this.getClass().getResource("/res/turtle1l.png")).getImage(); // obrazok
+        this.nepriatelObr2 = new ImageIcon(this.getClass().getResource("/res/turtle1r.png")).getImage(); // obrazok
         this.nepriatelObr = this.nepriatelObr1; // nastavi obrazok na vykreslenie
         this.dx = 2; // default rychlost x
         this.dy = 0; // default rychlost y
