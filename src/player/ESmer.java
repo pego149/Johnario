@@ -6,7 +6,7 @@
 package player;
 
 /**
- *
+ * Enum pre smer objektov
  * @author pego1
  */
 public enum ESmer {

@@ -1,27 +1,40 @@
 package johnario;
 
 import java.io.InputStream;
-import javax.sound.sampled.*;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
+/**
+ * Kniznica potrebna pre zvul
+ * @author pego1
+ */
 public class Audio {
     private AudioStream audioStream;
+
+    /**
+     * Konstruktor
+     * @param s cesta
+     */
     public Audio(String s) {
         try {
             InputStream inputStream = getClass().getResourceAsStream(s);
-            audioStream = new AudioStream(inputStream);
-        }
-        catch(Exception e) {
+            this.audioStream = new AudioStream(inputStream);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Hraj
+     */
     public void play() {
-        AudioPlayer.player.start(audioStream);
+        AudioPlayer.player.start(this.audioStream);
     }
 
+    /**
+     * Zastav
+     */
     public void stop() {
-        AudioPlayer.player.stop(audioStream);
+        AudioPlayer.player.stop(this.audioStream);
     }
 }

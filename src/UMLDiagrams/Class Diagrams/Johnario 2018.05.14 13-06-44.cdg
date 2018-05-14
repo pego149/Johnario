@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Johnario">
+  <ClassDiagramComponents>
+    <Class name="Audio" package="johnario" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="audioStream" type="AudioStream" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="s"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="play" returnType="void" visibility="public"/>
+        <Method name="stop" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Johnario" package="johnario" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Obrazovka" package="johnario" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="sirkaPanelu" type="int" visibility="private" isFinal="true"/>
+        <Field name="vyskaPanelu" type="int" visibility="private" isFinal="true"/>
+        <Field name="casovac" type="Timer" visibility="private"/>
+        <Field name="mario" type="Mario" visibility="private"/>
+        <Field name="hraSa" type="boolean" visibility="private"/>
+        <Field name="citac" type="int" visibility="private"/>
+        <Field name="prekazky" type="ArrayList&lt;IPrekazka&gt;" visibility="private"/>
+        <Field name="bgMusic" type="Audio" visibility="private"/>
+        <Field name="zrazka" type="IPrekazka" visibility="private"/>
+        <Field name="bg" type="Pozadie" visibility="private"/>
+        <Field name="cas" type="int" visibility="private"/>
+        <Field name="score" type="int" visibility="private"/>
+        <Field name="nepriatelia" type="ArrayList&lt;INepriatel&gt;" visibility="private"/>
+        <Field name="koniec" type="boolean" visibility="private"/>
+        <Field name="vMenu" type="boolean" visibility="private"/>
+        <Field name="chybaSuboru" type="boolean" visibility="private"/>
+        <Field name="vyhral" type="boolean" visibility="private"/>
+        <Field name="hrad" type="Castle" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="init" returnType="void" visibility="private"/>
+        <Method name="start" returnType="void" visibility="public"/>
+        <Method name="getMario" returnType="Mario" visibility="public"/>
+        <Method name="paintComponent" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="vypisVrch" returnType="void" visibility="private">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="vypisKoniec" returnType="void" visibility="private">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="vypisVyhru" returnType="void" visibility="private">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="actionPerformed" returnType="void" visibility="public">
+          <Argument type="ActionEvent" name="ae"/>
+        </Method>
+        <Method name="isHraSa" returnType="boolean" visibility="public"/>
+        <Method name="koniecHry" returnType="void" visibility="public"/>
+        <Method name="isZrazka" returnType="boolean" visibility="public">
+          <Argument type="Rectangle" name="okraje"/>
+        </Method>
+        <Method name="pridajObjektyDoMapy" returnType="void" visibility="private"/>
+        <Method name="posunObrazu" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+        </Method>
+        <Method name="pridajScore" returnType="void" visibility="public">
+          <Argument type="int" name="score"/>
+        </Method>
+        <Method name="getVMenu" returnType="boolean" visibility="public"/>
+        <Method name="getZrazka" returnType="IPrekazka" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Goomba" package="nepriatelia" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="nepriatelObr1" type="Image" visibility="private" isFinal="true"/>
+        <Field name="nepriatelObr" type="Image" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+        <Field name="dx" type="int" visibility="private"/>
+        <Field name="dy" type="int" visibility="private"/>
+        <Field name="maxDy" type="int" visibility="private" isFinal="true"/>
+        <Field name="gravity" type="double" visibility="private" isFinal="true"/>
+        <Field name="mozePadat" type="boolean" visibility="private"/>
+        <Field name="mapx" type="int" visibility="private"/>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="nepriatelObr2" type="Image" visibility="private" isFinal="true"/>
+        <Field name="zmena" type="int" visibility="private"/>
+        <Field name="mario" type="Mario" visibility="private" isFinal="true"/>
+        <Field name="zivy" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="urobPohyb" returnType="void" visibility="public"/>
+        <Method name="padanie" returnType="void" visibility="public"/>
+        <Method name="getY" returnType="int" visibility="public"/>
+        <Method name="kontrolaKolizieSMariom" returnType="void" visibility="public"/>
+        <Method name="minusY" returnType="void" visibility="public">
+          <Argument type="int" name="y"/>
+        </Method>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+        <Method name="isZivy" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="INepriatel" package="nepriatelia" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Methods>
+        <Method name="urobPohyb" returnType="void" visibility="package"/>
+        <Method name="vykresliSa" returnType="void" visibility="package">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="isZivy" returnType="boolean" visibility="package"/>
+        <Method name="setX" returnType="void" visibility="package">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Class name="Korytnacka" package="nepriatelia" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="nepriatelObr1" type="Image" visibility="private" isFinal="true"/>
+        <Field name="nepriatelObr" type="Image" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+        <Field name="dx" type="int" visibility="private"/>
+        <Field name="dy" type="int" visibility="private"/>
+        <Field name="maxDy" type="int" visibility="private" isFinal="true"/>
+        <Field name="gravity" type="double" visibility="private" isFinal="true"/>
+        <Field name="mozePadat" type="boolean" visibility="private"/>
+        <Field name="mapx" type="int" visibility="private"/>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="nepriatelObr2" type="Image" visibility="private" isFinal="true"/>
+        <Field name="zmena" type="int" visibility="private"/>
+        <Field name="mario" type="Mario" visibility="private" isFinal="true"/>
+        <Field name="zivy" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="urobPohyb" returnType="void" visibility="public"/>
+        <Method name="padanie" returnType="void" visibility="public"/>
+        <Method name="getY" returnType="int" visibility="public"/>
+        <Method name="kontrolaKolizieSMariom" returnType="void" visibility="public"/>
+        <Method name="minusY" returnType="void" visibility="public">
+          <Argument type="int" name="y"/>
+        </Method>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+        <Method name="isZivy" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Enum name="ESmer" package="player" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Literals>
+        <Literal name="VPRAVO"/>
+        <Literal name="KONIEC"/>
+        <Literal name="VLAVO"/>
+      </Literals>
+    </Enum>
+    <Enum name="ETypHraca" package="player" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Literals>
+        <Literal name="MALY_VPRAVO"/>
+        <Literal name="MALY_VLAVO"/>
+        <Literal name="MALY_BEZI1_VLAVO"/>
+        <Literal name="MALY_BEZI2_VLAVO"/>
+        <Literal name="MALY_BEZI3_VLAVO"/>
+        <Literal name="MALY_BEZI1_VPRAVO"/>
+        <Literal name="MALY_BEZI2_VPRAVO"/>
+        <Literal name="MALY_BEZI3_VPRAVO"/>
+        <Literal name="MALY_SKOK_VPRAVO"/>
+        <Literal name="MALY_SKOK_VLAVO"/>
+        <Literal name="VELKY_VPRAVO"/>
+        <Literal name="VELKY_VLAVO"/>
+        <Literal name="VELKY_BEZI1_VLAVO"/>
+        <Literal name="VELKY_BEZI2_VLAVO"/>
+        <Literal name="VELKY_BEZI3_VLAVO"/>
+        <Literal name="VELKY_BEZI1_VPRAVO"/>
+        <Literal name="VELKY_BEZI2_VPRAVO"/>
+        <Literal name="VELKY_BEZI3_VPRAVO"/>
+        <Literal name="VELKY_SKOK_VPRAVO"/>
+        <Literal name="VELKY_SKOK_VLAVO"/>
+        <Literal name="MALY_KONIEC"/>
+      </Literals>
+    </Enum>
+    <Enum name="EVelkost" package="player" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Literals>
+        <Literal name="MALY"/>
+        <Literal name="VELKY"/>
+      </Literals>
+    </Enum>
+    <Class name="Mario" package="player" visibility="public" xPosition="320.0" yPosition="420.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private"/>
+        <Field name="typMaria" type="ETypHraca" visibility="private"/>
+        <Field name="smer" type="ESmer" visibility="private"/>
+        <Field name="marioObr" type="Image" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+        <Field name="dx" type="double" visibility="private"/>
+        <Field name="dy" type="double" visibility="private"/>
+        <Field name="maxDy" type="int" visibility="private"/>
+        <Field name="gravity" type="double" visibility="private"/>
+        <Field name="mozePadat" type="boolean" visibility="private"/>
+        <Field name="mozeSkocit" type="boolean" visibility="private"/>
+        <Field name="tlacidla" type="boolean[]" visibility="private"/>
+        <Field name="vAnimacii" type="boolean" visibility="private"/>
+        <Field name="animacia" type="int" visibility="private"/>
+        <Field name="velkost" type="EVelkost" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSe" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="getTypMaria" returnType="ETypHraca" visibility="public"/>
+        <Method name="urobPohyb" returnType="void" visibility="public"/>
+        <Method name="padanie" returnType="void" visibility="public"/>
+        <Method name="skok" returnType="void" visibility="public">
+          <Argument type="int" name="vyska"/>
+        </Method>
+        <Method name="getVelkost" returnType="EVelkost" visibility="public"/>
+        <Method name="getOkraje" returnType="Rectangle" visibility="public"/>
+        <Method name="keyPressed" returnType="void" visibility="public">
+          <Argument type="KeyEvent" name="ke"/>
+        </Method>
+        <Method name="keyReleased" returnType="void" visibility="public">
+          <Argument type="KeyEvent" name="ke"/>
+        </Method>
+        <Method name="ovladanie" returnType="void" visibility="public"/>
+        <Method name="keyTyped" returnType="void" visibility="public">
+          <Argument type="KeyEvent" name="ke"/>
+        </Method>
+        <Method name="setPada" returnType="void" visibility="public">
+          <Argument type="boolean" name="b"/>
+        </Method>
+        <Method name="animacia" returnType="void" visibility="public"/>
+        <Method name="endSkok" returnType="void" visibility="public"/>
+        <Method name="posunObrazu" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+        </Method>
+        <Method name="setMarioToBig" returnType="void" visibility="public"/>
+        <Method name="stretSNepriatelom" returnType="void" visibility="public"/>
+        <Method name="setDy" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Blok" package="svet" visibility="public" xPosition="620.0" yPosition="420.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="prekazkaObr" type="Image" visibility="private" isFinal="true"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private" isFinal="true"/>
+        <Field name="viditelny" type="boolean" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="getOkraje" returnType="Rectangle" visibility="public"/>
+        <Method name="isViditelny" returnType="boolean" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="BonusBlok" package="svet" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="bonusObr1" type="Image" visibility="private" isFinal="true"/>
+        <Field name="bonusObr2" type="Image" visibility="private" isFinal="true"/>
+        <Field name="bonusObr3" type="Image" visibility="private" isFinal="true"/>
+        <Field name="bonusObr" type="Image" visibility="private" isFinal="true"/>
+        <Field name="obr" type="Image" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+        <Field name="mario" type="Mario" visibility="private" isFinal="true"/>
+        <Field name="vAnimacii" type="boolean" visibility="private"/>
+        <Field name="animacia" type="int" visibility="private"/>
+        <Field name="zmena" type="int" visibility="private"/>
+        <Field name="active" type="boolean" visibility="private"/>
+        <Field name="viditelny" type="boolean" visibility="private" isFinal="true"/>
+        <Field name="coin" type="Audio" visibility="private" isFinal="true"/>
+        <Field name="coinObr" type="Image" visibility="private" isFinal="true"/>
+        <Field name="coinActive" type="boolean" visibility="private"/>
+        <Field name="hribActive" type="boolean" visibility="private"/>
+        <Field name="cy" type="int" visibility="private"/>
+        <Field name="isForCoin" type="boolean" visibility="private" isFinal="true"/>
+        <Field name="hrib" type="Hrib" visibility="private"/>
+        <Field name="vysunutyHrib" type="boolean" visibility="private"/>
+        <Field name="powerup" type="Audio" visibility="private" isFinal="true"/>
+        <Field name="overovanie" type="boolean" visibility="private"/>
+        <Field name="powerup2" type="Audio" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="boolean" name="coin"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="zrazka" returnType="boolean" visibility="public"/>
+        <Method name="getOkraje" returnType="Rectangle" visibility="public"/>
+        <Method name="isViditelny" returnType="boolean" visibility="public"/>
+        <Method name="animacia" returnType="void" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+        <Method name="vysunMincu" returnType="void" visibility="private"/>
+        <Method name="vysunHrib" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="Castle" package="svet" visibility="public" xPosition="1220.0" yPosition="420.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="prekazkaObr" type="Image" visibility="private" isFinal="true"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private" isFinal="true"/>
+        <Field name="viditelny" type="boolean" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="getOkraje" returnType="Rectangle" visibility="public"/>
+        <Method name="getX" returnType="int" visibility="public"/>
+        <Method name="isViditelny" returnType="boolean" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="IPrekazka" package="svet" visibility="public" xPosition="1520.0" yPosition="420.0">
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="package">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="getOkraje" returnType="Rectangle" visibility="package"/>
+        <Method name="isViditelny" returnType="boolean" visibility="package"/>
+        <Method name="setX" returnType="void" visibility="package">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Class name="Pozadie" package="svet" visibility="public" xPosition="1820.0" yPosition="420.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private"/>
+        <Field name="pozadieObr" type="Image" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Rura" package="svet" visibility="public" xPosition="2120.0" yPosition="420.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="prekazkaObr" type="Image" visibility="private" isFinal="true"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private" isFinal="true"/>
+        <Field name="viditelny" type="boolean" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="getOkraje" returnType="Rectangle" visibility="public"/>
+        <Method name="isViditelny" returnType="boolean" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Skala" package="svet" visibility="public" xPosition="20.0" yPosition="820.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="prekazkaObr" type="Image" visibility="private" isFinal="true"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private" isFinal="true"/>
+        <Field name="viditelny" type="boolean" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="getOkraje" returnType="Rectangle" visibility="public"/>
+        <Method name="isViditelny" returnType="boolean" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Tehla" package="svet" visibility="public" xPosition="320.0" yPosition="820.0">
+      <Fields>
+        <Field name="panel" type="Obrazovka" visibility="private" isFinal="true"/>
+        <Field name="prekazkaObr" type="Image" visibility="private" isFinal="true"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+        <Field name="viditelny" type="boolean" visibility="private"/>
+        <Field name="mario" type="Mario" visibility="private" isFinal="true"/>
+        <Field name="vAnimacii" type="boolean" visibility="private"/>
+        <Field name="animacia" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Obrazovka" name="panel"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="vykresliSa" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="zrazka" returnType="boolean" visibility="public"/>
+        <Method name="getOkraje" returnType="Rectangle" visibility="public"/>
+        <Method name="isViditelny" returnType="boolean" visibility="public"/>
+        <Method name="animacia" returnType="void" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="panel" source="svet.Rura" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="nepriatelia.Goomba" target="nepriatelia.INepriatel"/>
+    <HasRelation name="typMaria" source="player.Mario" target="player.ETypHraca" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="svet.Pozadie" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mario" source="johnario.Obrazovka" target="player.Mario" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="svet.Blok" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="nepriatelia.Korytnacka" target="nepriatelia.INepriatel"/>
+    <HasRelation name="powerup" source="svet.BonusBlok" target="johnario.Audio" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="prekazky" source="johnario.Obrazovka" target="svet.IPrekazka" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;IPrekazka&gt;"/>
+    <HasRelation name="bg" source="johnario.Obrazovka" target="svet.Pozadie" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="hrad" source="johnario.Obrazovka" target="svet.Castle" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="smer" source="player.Mario" target="player.ESmer" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mario" source="svet.Tehla" target="player.Mario" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="johnario.Obrazovka" target="player.Mario" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="svet.Tehla" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="svet.Skala" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="powerup2" source="svet.BonusBlok" target="johnario.Audio" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="svet.Rura" target="svet.IPrekazka"/>
+    <HasRelation name="mario" source="nepriatelia.Korytnacka" target="player.Mario" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="svet.BonusBlok" target="svet.IPrekazka"/>
+    <HasRelation name="nepriatelia" source="johnario.Obrazovka" target="nepriatelia.INepriatel" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;INepriatel&gt;"/>
+    <UseRelation source="player.Mario" target="player.ETypHraca" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="player.Mario" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="coin" source="svet.BonusBlok" target="johnario.Audio" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="nepriatelia.Korytnacka" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="nepriatelia.Goomba" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="svet.Tehla" target="svet.IPrekazka"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="svet.Castle" target="svet.IPrekazka"/>
+    <UseRelation source="player.Mario" target="player.EVelkost" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="svet.Skala" target="svet.IPrekazka"/>
+    <HasRelation name="velkost" source="player.Mario" target="player.EVelkost" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="svet.Castle" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bgMusic" source="johnario.Obrazovka" target="johnario.Audio" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="svet.BonusBlok" target="johnario.Obrazovka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="johnario.Obrazovka" target="svet.IPrekazka" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="svet.Blok" target="svet.IPrekazka"/>
+    <HasRelation name="mario" source="nepriatelia.Goomba" target="player.Mario" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mario" source="svet.BonusBlok" target="player.Mario" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="zrazka" source="johnario.Obrazovka" target="svet.IPrekazka" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

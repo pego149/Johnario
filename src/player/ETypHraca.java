@@ -9,7 +9,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * Enum pre typ hraca a urcuje s ktorym obrazkom bude pracovat
  * @author pego1
  */
 public enum ETypHraca {
@@ -34,18 +34,26 @@ public enum ETypHraca {
     VELKY_SKOK_VPRAVO (new ImageIcon(ETypHraca.class.getResource("/res/big-mario-jump-right.png")), ESmer.VPRAVO),
     VELKY_SKOK_VLAVO (new ImageIcon(ETypHraca.class.getResource("/res/big-mario-jump-left.png")), ESmer.VLAVO),
     MALY_KONIEC (new ImageIcon(ETypHraca.class.getResource("/res/little-mario-over.png")), ESmer.VLAVO);
-    public final ImageIcon marioObr;
-    public final ESmer smer;
+    private final ImageIcon marioObr;
+    private final ESmer smer;
     
     ETypHraca(ImageIcon zdroj, ESmer smer) {
         this.marioObr = zdroj;
         this.smer = smer;
     }
     
+    /**
+     * Getter pre obrazok
+     * @return obrazok
+     */
     public Image getObr() {
         return this.marioObr.getImage();
     }
     
+    /**
+     * Getter pre smer
+     * @return smer
+     */
     public ESmer getSmer() {
         return this.smer;
     }

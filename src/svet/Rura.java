@@ -7,15 +7,15 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 /**
- * Trieda Skala.
+ * Trieda Rura
  * @author pego1
  */
-public class Skala implements IPrekazka {
+public class Rura implements IPrekazka {
     private final Obrazovka panel;   // panel
     private final Image prekazkaObr; // obrazok prekazyk
     private int x; // x
     private final int y; // y
-    private final boolean viditelny;  // ci je prekazka viditelna
+    private final boolean viditelny;  // ci je prekazka viditelnae
     
     /**
      * Konstruktor.
@@ -23,8 +23,8 @@ public class Skala implements IPrekazka {
      * @param x x-ová suradnica
      * @param y y-ová suradnica
      */
-    public Skala(Obrazovka panel, int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("/res/skala.png")); // nacita obrazok
+    public Rura(Obrazovka panel, int x, int y) {
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/res/pipe.png")); // nacita obrazok
         this.prekazkaObr = ii.getImage(); // priradi obrazok
         this.panel = panel;             // panel
         this.x = x;  // umiestni prekazku podla x
@@ -36,7 +36,6 @@ public class Skala implements IPrekazka {
      * Vykresli prekazku
      * @param g grafický kontext
      */
-    @Override
     public void vykresliSa(Graphics g) {
         g.drawImage(this.prekazkaObr, this.x, this.y, null);
     }
@@ -45,7 +44,6 @@ public class Skala implements IPrekazka {
      * Vracia obrys obrázku
      * @return Rectangle podla velkosti this.prekazkaObr
      */
-    @Override
     public Rectangle getOkraje() {
         Rectangle r = new Rectangle(this.x, this.y, this.prekazkaObr.getWidth(this.panel), this.prekazkaObr.getHeight(this.panel));
         return r;
@@ -55,7 +53,6 @@ public class Skala implements IPrekazka {
      * Vracia ci je viditelny
      * @return this.viditelny
      */
-    @Override
     public boolean isViditelny() {
         return this.viditelny;
     }  

@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package svet;
+package nepriatelia;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 /**
- * Interface pre prakzky
+ * Interface pre nepriatelov
  * @author pego1
  */
-public interface IPrekazka {
+public interface INepriatel {
+    void urobPohyb();
     void vykresliSa(Graphics g);
-    Rectangle getOkraje();
-    boolean isViditelny();
+    boolean isZivy();
     void setX(int i);
 }

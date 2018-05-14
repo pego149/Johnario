@@ -9,10 +9,10 @@ import johnario.Obrazovka;
 import player.Mario;
 
 /**
- * Trieda nepriatela Goomba.
+ * Trieda nepriatela Korytnacka.
  * @author pego1
  */
-public class Goomba implements INepriatel {
+public class Korytnacka implements INepriatel {
     private final Image nepriatelObr1;
     private Image nepriatelObr;
     private int x;
@@ -30,12 +30,12 @@ public class Goomba implements INepriatel {
     private boolean zivy;
         
     /**
-     * Konstruktor pre Goomba
+     * Konstruktor pre Korytnacku
      * @param panel Obrazovka
      * @param x pozicia x
      * @param y pozicia y
      */
-    public Goomba(Obrazovka panel, int x, int y) {
+    public Korytnacka(Obrazovka panel, int x, int y) {
         this.panel = panel; // obrazovka
         this.x = x; // pozicia x
         this.y = y; // pozicia y 
@@ -53,26 +53,18 @@ public class Goomba implements INepriatel {
     }
     
     /**
-     * Vykresli goombu a spravi animaciu
+     * Vykresli korytnacku
      * @param g grafický kontext
      */
     @Override
     public void vykresliSa(Graphics g) {
-        if (this.zmena == 0) {
-            this.nepriatelObr = this.nepriatelObr1;
-        } else if (this.zmena == 20) {
-            this.nepriatelObr = this.nepriatelObr2;
-        }
-        if (this.zmena == 40) {
-            this.zmena = -1;
-        }
-        this.zmena++;
         g.drawImage(this.nepriatelObr, this.x, this.y, null);
     }
-
+    
     /**
      * Pohne s nepriatelom
      */
+    @Override
     public void urobPohyb() {
         this.x += this.dx;
         this.y += this.dy;
@@ -81,8 +73,10 @@ public class Goomba implements INepriatel {
         }
         if (this.dx == 2 && this.panel.isZrazka(new Rectangle(this.x + 5, this.y, this.nepriatelObr.getWidth(null) + 3, this.nepriatelObr.getHeight(null) - 5))) {
             this.dx = -2;
+            this.nepriatelObr = this.nepriatelObr1; 
         } else if (this.dx == -2 && this.panel.isZrazka(new Rectangle(this.x - 3, this.y, this.nepriatelObr.getWidth(null) + 1, this.nepriatelObr.getHeight(null) - 5))) {
             this.dx = 2;
+            this.nepriatelObr = this.nepriatelObr2;
         }
         this.mozePadat = !this.panel.isZrazka(new Rectangle(this.x + 2, this.y, this.nepriatelObr.getWidth(null) - 2, this.nepriatelObr.getHeight(null)));
         if (this.mozePadat) {

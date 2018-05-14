@@ -11,27 +11,41 @@ import javax.swing.ImageIcon;
 import johnario.Obrazovka;
 
 /**
- *
+ * Trieda pre pozadie
  * @author pego1
  */
 public class Pozadie {
-    private Obrazovka panel;   // reference na panel
-    private Image prekazkaObr;
-    private int x;
-    private int y;
+    private Obrazovka panel;   // obrazovka
+    private Image pozadieObr; // obrazok pre pozadie
+    private int x; // x
+    private int y; // y
     
+    /**
+     * Konstruktor
+     * @param panel Obrazovka
+     */
     public Pozadie(Obrazovka panel) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("/res/bg.png"));
-        prekazkaObr = ii.getImage();
-        this.panel = panel;             // reference na panel
-        this.x = 0;
-        this.y = 0;
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/res/bg.png")); // nacita obrazok
+        this.pozadieObr = ii.getImage(); // priradi obrazok
+        this.panel = panel;             // panel
+        this.x = x;  // umiestni prekazku podla x
+        this.y = y;  // umiestni prekazku podla y
     }
     
-    public void vykresliSe(Graphics g) {
-        g.drawImage(prekazkaObr, x, y, null);
+    /**
+     * Vykresli prekazku
+     * @param g grafický kontext
+     */
+    public void vykresliSa(Graphics g) {
+        g.drawImage(this.pozadieObr, this.x, this.y, null);
+        g.drawImage(this.pozadieObr, this.x + this.pozadieObr.getWidth(null), this.y, null);
+        g.drawImage(this.pozadieObr, this.x + this.pozadieObr.getWidth(null) * 2, this.y, null);
     }
 
+    /**
+     * Prida k this.x i
+     * @param x o kolko sa ma pridat
+     */
     public void setX(int x) {
         this.x = this.x + x;
     }    

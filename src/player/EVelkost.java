@@ -6,7 +6,7 @@
 package player;
 
 /**
- *
+ * Enum pre velkost maria
  * @author pego1
  */
 public enum EVelkost {

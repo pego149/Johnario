@@ -3,13 +3,13 @@ package johnario;
 import javax.swing.JFrame;
 
 /**
- * Třída obsahující hlavní okno programu a metodu main.
- * @author vita
+ * Hlavna trieda
+ * @author pego1
  */
 public class Johnario extends JFrame {
     
     /**
-     * Konstruktor hlavního okna programu.
+     * Konstruktor hlavneho okna programu.
      */
     public Johnario() {
         this.setTitle("Johnario v0.1");
@@ -22,9 +22,9 @@ public class Johnario extends JFrame {
     }
     
      /**
-      * Vstupní bod programu. 
-      * Vytvoří hlavní okno s programem.
-      * @param args - v tomto programu nepoužívám
+      * Vstupny bod programu. 
+      * Vytvorí okno s programom.
+      * @param args - nepouzite
       */
     public static void main(String[] args) {
         Johnario hlavniOkno = new Johnario();
